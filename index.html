@@ -94,5 +94,27 @@
   <li><label><input type="checkbox"> Редактирование предметов для бонусной валюты</label></li>
 </ul>
 
+  <script>
+  // Ключ, по которому будем хранить данные
+  const STORAGE_KEY = "lotteryChecklist";
+
+  // Загружаем состояние при открытии
+  window.addEventListener("DOMContentLoaded", () => {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    const checkboxes = document.querySelectorAll("input[type=checkbox]");
+
+    checkboxes.forEach((checkbox, index) => {
+      if (saved[index]) {
+        checkbox.checked = true;
+      }
+
+      checkbox.addEventListener("change", () => {
+        saved[index] = checkbox.checked;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+      });
+    });
+  });
+</script>
+
 </body>
 </html>
